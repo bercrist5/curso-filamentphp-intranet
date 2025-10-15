@@ -15,13 +15,13 @@ class HolidayForm
             ->components([
                 Select::make('calendar_id')
                     ->label('Calendar')
-                    ->relationship(name : 'calendar', titleAttribute:'name')
+                    ->relationship(name: 'calendar', titleAttribute: 'name')
                     ->searchable()
                     ->preload()
                     ->required(),
                 Select::make('user_id')
-                    ->label('user')
-                    ->relationship(name : 'user', titleAttribute:'name')
+                    ->label('User')
+                    ->relationship(name: 'user', titleAttribute: 'name')
                     ->searchable()
                     ->preload()
                     ->required(),
@@ -29,10 +29,11 @@ class HolidayForm
                     ->required(),
                 Select::make('type')
                     ->options([
-                        'decline' => 'Decline',
-                        'aprove' => 'Aprove',
                         'pending' => 'Pending',
+                        'aprove' => 'Aproved',                        
+                        'decline' =>'Declined'                        
                     ])
+                    ->required(),
             ]);
     }
 }
