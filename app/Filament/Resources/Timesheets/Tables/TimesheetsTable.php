@@ -1,38 +1,38 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\Timesheets\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
-class UsersTable
+class TimesheetsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('address')
-                    ->label('Address')
+                TextColumn::make('calendar.name')
                     ->sortable()
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
-                TextColumn::make('postal_code')
-                    ->label('Postal code')
+                    ->searchable(),
+                TextColumn::make('user.name')
                     ->sortable()
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
-                TextColumn::make('email_verified_at')
+                    ->searchable(),
+                TextColumn::make('type')
+                    ->searchable(),
+                TextColumn::make('day_in')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
+                TextColumn::make('day_out')
+                    ->dateTime()
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -43,10 +43,17 @@ class UsersTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->options([
+                        'work' => 'Working',
+                        'pause' => 'In pause',
+                    ]),
+                    
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
+                DeleteBulkAction::make()
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
