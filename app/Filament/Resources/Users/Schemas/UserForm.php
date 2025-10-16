@@ -33,7 +33,7 @@ class UserForm
                         TextInput::make('password')
                             ->password()
                             ->required()
-                            ->hidden('edit'),
+                            ->hiddenOn('edit')
                     ]),
 
                 Section::make('Address info')

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Calendars\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
@@ -36,6 +37,8 @@ class CalendarsTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
+                DeleteBulkAction::make()
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

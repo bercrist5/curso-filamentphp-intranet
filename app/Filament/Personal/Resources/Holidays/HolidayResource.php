@@ -1,26 +1,30 @@
 <?php
 
-namespace App\Filament\Resources\Holidays;
+namespace App\Filament\Personal\Resources\Holidays;
 
-use App\Filament\Resources\Holidays\Pages\CreateHoliday;
-use App\Filament\Resources\Holidays\Pages\EditHoliday;
-use App\Filament\Resources\Holidays\Pages\ListHolidays;
-use App\Filament\Resources\Holidays\Schemas\HolidayForm;
-use App\Filament\Resources\Holidays\Tables\HolidaysTable;
-use App\Models\Holiday;
+use App\Filament\Personal\Resources\Holidays\Pages\CreateHoliday;
+use App\Filament\Personal\Resources\Holidays\Pages\EditHoliday;
+use App\Filament\Personal\Resources\Holidays\Pages\ListHolidays;
+use App\Filament\Personal\Resources\Holidays\Schemas\HolidayForm;
+use App\Filament\Personal\Resources\Holidays\Tables\HolidaysTable;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
+use App\Models\Holiday;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class HolidayResource extends Resource
 {
     protected static ?string $model = Holiday::class;
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-globe-americas';
-    protected static string | UnitEnum | null $navigationGroup = 'Employees management';
-    protected static ?int $navigationSort = 4;
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('user_id', Auth::user()->id);
+    }
 
     public static function form(Schema $schema): Schema
     {

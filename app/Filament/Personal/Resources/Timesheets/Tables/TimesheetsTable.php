@@ -1,21 +1,31 @@
 <?php
 
-namespace App\Filament\Resources\Departments\Tables;
+namespace App\Filament\Personal\Resources\Timesheets\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class DepartmentsTable
+class TimesheetsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('calendar.name')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('type')
+                    ->searchable(),
+                TextColumn::make('day_in')
+                    ->dateTime()
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('day_out')
+                    ->dateTime()
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -31,8 +41,6 @@ class DepartmentsTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
-                DeleteBulkAction::make()
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

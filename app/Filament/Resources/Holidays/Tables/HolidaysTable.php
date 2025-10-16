@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Holidays\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -51,6 +52,8 @@ class HolidaysTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
+                DeleteBulkAction::make()
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
