@@ -45,7 +45,7 @@ class PersonalWidgetStats extends StatsOverviewWidget
     protected function getTotalWork(User $user)
     {
         $totalTimesheets = Timesheet::where('user_id', $user->id)
-            ->where('type', 'work')->get();
+            ->where('type', 'work')->whereDate('created_at', Carbon::today())->get();
         $totalMinutes = 0;
         foreach ($totalTimesheets as $timesheet) {
             $startTime = Carbon::parse($timesheet->day_in);
